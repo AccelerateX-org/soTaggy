@@ -65,4 +65,4 @@
 ###############################################################################
 # override vendor file recognition by Linguist
 ###############################################################################
-soTaggy/Sources/SoTaggy.Web/Scripts/* linguist-vendored
+Sources/SoTaggy.Web/Scripts/* linguist-vendored

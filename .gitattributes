@@ -61,3 +61,8 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# override vendor file recognition by Linguist
+###############################################################################
+soTaggy/Sources/SoTaggy.Web/Scripts/* linguist-vendored

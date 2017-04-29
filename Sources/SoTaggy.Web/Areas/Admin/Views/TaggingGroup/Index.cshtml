@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SoTaggy.Web.Data.TaggingGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Tagginggruppen (Taggingprojekte)</h4>
+
+<div class="well">
+    @Html.ActionLink("Neue Tagginggruppe anlegen", "Create", null, new { @class = "btn btn-success" })
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArtworkPool.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArtworkPool.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            <a href="@Url.Action("Tags", new { id = item.TaggingGroupId })" class="btn btn-success"><i class="fa fa-tags"></i></a>
+            <a href="@Url.Action("Edit", new { id = item.TaggingGroupId })" class="btn btn-success"><i class="fa fa-edit"></i></a>
+            <a href="@Url.Action("Delete", new { id = item.TaggingGroupId })" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+
+
+        </td>
+    </tr>
+}
+
+</table>

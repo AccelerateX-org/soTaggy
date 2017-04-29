@@ -1,0 +1,47 @@
+﻿@model SoTaggy.Web.Data.ArtworkPool
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="well">
+@using (Html.BeginForm("Edit", "Pool", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Bildpool ändern</legend>
+
+        @Html.HiddenFor(model => model.ArtworkPoolId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-success" value="Speichern" />
+                <a href="@Url.Action("Index")" class="btn">Zurück zur Liste</a>
+            </div>
+        </div>
+    </fieldset>
+}
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

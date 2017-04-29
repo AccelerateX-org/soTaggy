@@ -1,0 +1,41 @@
+﻿@model ICollection<SoTaggy.Web.Data.ArtworkImage>
+
+@{
+    ViewBag.Title = "TaggingAnalysisWeb";
+}
+
+<h2>Taggings Auswertung</h2>
+
+<table class="table table-condensed">
+
+    @foreach (SoTaggy.Web.Areas.Admin.Models.TagAnalysisImage imageTags in ViewBag.Taglist)
+    {
+        <tr>
+            <td>
+                <div>
+                    <h4 style="color: #4b4b4b">@imageTags.Artwork</h4>
+                    <img src="@Url.Action("ShowImage", "Image", new {area = "Admin", id = imageTags.ArtworkID})" style="height: 150px;width: auto" />
+                </div>
+            </td>
+            <td>
+                <table class="table table-striped">
+                    <thead>
+                        <tr style="height: 30px;">
+                            <td style="width: 300px;">Tags</td>
+                            <td style="width: 150px;">Anzahl der Nennungen</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (SoTaggy.Web.Areas.Admin.Models.TagList tag in @imageTags.Tags)
+                        {
+                            <tr>
+                                <td>@tag.Tag</td>
+                                <td>@tag.Anzahl</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    }
+</table>

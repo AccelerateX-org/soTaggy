@@ -1,0 +1,53 @@
+﻿@model SoTaggy.Web.Areas.Admin.Models.GroupTagModel
+@{
+    ViewBag.Title = "Tags";
+}
+
+<h4>Schlagworte für Tagginggruppe @Model.Group.Name</h4>
+
+<div class="row">
+    <!-- Das Bild -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>neues Schlagwort</h4>
+            </div>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("SendTag", "TaggingGroup",
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Post",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "TagList",
+                                    OnSuccess = "RemoveTag",
+                                }, new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(m => m.GroupId)
+                    @Html.TextBoxFor(m => m.Tag, null, new { @class = "form-control" })
+                }
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>gespeicherte Schlagworte</h4>
+            </div>
+            <div class="panel-body">
+                <div id="TagList">
+                    @Html.Partial("_GroupTagList", Model.Group)
+                </div>
+            </div>
+       </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    function RemoveTag() {
+        document.getElementById('Tag').value = "";
+    }
+    </script>
+}
+
+
+

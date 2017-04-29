@@ -1,0 +1,36 @@
+﻿@model ICollection<SoTaggy.Web.Data.TaggingOrg>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tagging-Institutionen / Lehrer</h2>
+
+<div class="row">
+    <div class="well well-sm">
+        <a href="@Url.Action("Create", "TaggingOrg")" class="btn btn-success"><i class="fa fa-plus fa-2x"></i> Anlegen</a>
+    </div>
+    
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Benutzername</th>
+                <th>Kennwort</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Password</td>
+                    <td><a href="@Url.Action("Groups", "TaggingOrg", new { id = item.TaggingOrgId })" class="btn btn-success"><i class="fa fa-group"></i> Gruppen</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

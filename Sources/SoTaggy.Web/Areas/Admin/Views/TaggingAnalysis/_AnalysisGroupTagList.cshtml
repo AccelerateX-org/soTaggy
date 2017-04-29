@@ -1,0 +1,36 @@
+﻿@model SoTaggy.Web.Areas.Admin.Models.TagAnalysisModel
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:66%">Schlagwort</th>
+            <th style="width:33%">Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+      
+
+        @foreach (var item in Model.AnalysisGroupTags)
+        {
+            <tr>
+                <td>@item.Tag</td>
+                <td>
+                    @Ajax.ActionLink("Löschen", "DeleteTag", "TagAnalysisModel",
+                 new { tagId = item.GroupTagId, groupId = Model.TagAnalysisModelId },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "TagList",
+                        InsertionMode = InsertionMode.Replace,
+                        OnSuccess = "RemoveTag",
+                    },
+                    new
+                    {
+                        @class = "btn btn-danger",
+                    })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

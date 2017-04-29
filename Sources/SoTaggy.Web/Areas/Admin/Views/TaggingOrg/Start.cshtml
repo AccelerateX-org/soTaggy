@@ -1,0 +1,46 @@
+﻿@model SoTaggy.Web.Areas.Admin.Models.TaggingOrgViewModel
+@{
+    ViewBag.Title = "Start";
+}
+
+<h2>Verwaltung der Tagginggruppen</h2>
+
+<div class="row">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Tagging von</th>
+                <th>Tagging bis</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var group in Model.Org.Groups)
+            {
+                <tr>
+                    <td>@group.Name</td>
+                    <td>@group.UnitStart.ToShortDateString()</td>
+                    <td>@group.UnitEnd.ToShortDateString()</td>
+                    <td>
+                        @if (Model.IsGroupAvailable(group))
+                        {
+                            if (Model.IsGroupActive(group))
+                            {
+                                <a href="@Url.Action("DisableTagging", new { orgid = Model.Org.TaggingOrgId, groupid = group.TaggingGroupId})" class="btn btn-danger"><i class="fa fa-times fa-2x"></i> Tagging beenden</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("EnableTagging", new { orgid = Model.Org.TaggingOrgId, groupid = group.TaggingGroupId })" class="btn btn-success"><i class="fa fa-clock-o fa-2x"></i> Tagging für 90 min. einschalten</a>
+                            }
+                        }
+                        else
+                        {
+                            @Html.Raw("Taggingzeitraum ist abgelaufen.")
+                        }
+                    </td>
+                </tr>                
+            }
+        </tbody>
+    </table>
+</div>

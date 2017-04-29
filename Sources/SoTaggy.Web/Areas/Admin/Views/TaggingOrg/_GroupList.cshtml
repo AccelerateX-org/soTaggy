@@ -1,0 +1,29 @@
+﻿@model SoTaggy.Web.Data.TaggingOrg
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model.Groups)
+        {
+            <tr id="@group.UserName">
+                <td>@group.Name</td>
+                <td>
+                    @Ajax.ActionLink("Entfernen", "RemoveGroup", "TaggingOrg",
+                            new { orgid = Model.TaggingOrgId, groupid=group.TaggingGroupId },
+                         new AjaxOptions()
+                         {
+                             HttpMethod = "Post", 
+                             InsertionMode = InsertionMode.Replace, 
+                             UpdateTargetId = group.UserName,
+                         },
+                         new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

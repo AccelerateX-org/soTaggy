@@ -1,0 +1,29 @@
+﻿@model SoTaggy.Web.Data.ArtworkLibrary
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ArtworkLibrary</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ShortName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShortName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ArtworkLibraryId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

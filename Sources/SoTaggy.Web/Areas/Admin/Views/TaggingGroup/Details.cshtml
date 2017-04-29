@@ -1,0 +1,71 @@
+﻿@model SoTaggy.Web.Data.TaggingGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TaggingGroup</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UnitStart)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UnitStart)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UnitEnd)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UnitEnd)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreatedAt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedAt)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ArtworkPool.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ArtworkPool.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.TaggingGroupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,173 @@
+﻿@model SoTaggy.Web.Areas.Admin.Models.TagSearchModel
+@{
+    ViewBag.Title = "Auswertung";
+}
+
+@using (Ajax.BeginForm("TagSearch", "TaggingAnalysisAjax", new AjaxOptions
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "TagList",
+    OnSuccess = "Download"
+}, new { @class = "form-inline" }))
+{
+    <fieldset>
+        <legend>Tags Auswerten</legend>
+
+        <div class="form-group col-sm-3">
+            @Html.LabelFor(model => model.ArtworkPoolId, new { @class = "control-label" })
+            <div>
+                <div>
+                    @Html.RadioButtonFor(model => model.IsArtworkSelection, "false", new { id = "artworkFalse" })
+                    @Html.Label("artworkFalse", "Alle")
+
+                    @Html.RadioButtonFor(model => model.IsArtworkSelection, "true", new { id = "artworkTrue" })
+                    @Html.Label("artworkTrue", "Auswahl")
+                </div>
+                @Html.DropDownListFor(model => model.ArtworkPoolId, null, new { @class = "form-control", @style = "width:100%;" })
+                @Html.ValidationMessageFor(model => model.ArtworkPoolId)
+            </div>
+        </div>
+
+        <div class="form-group col-sm-3">
+            @Html.LabelFor(model => model.GroupTagId, new { @class = "control-label" })
+            <div>
+                <div>
+                    @Html.RadioButtonFor(model => model.IsGroupTagSelection, "false", new { id = "grouptagFalse" })
+                    @Html.Label("grouptagFalse", "Alle")
+
+                    @Html.RadioButtonFor(model => model.IsGroupTagSelection, "true", new { id = "grouptagTrue" })
+                    @Html.Label("grouptagTrue", "Auswahl")
+                </div>
+                @Html.DropDownListFor(model => model.GroupTagId, null, new { @class = "form-control", @style = "width:100%;" })
+                @Html.ValidationMessageFor(model => model.GroupTagId)
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            @Html.Label("Zeitraum wählen", new { @class = "control-label" })
+            <div>
+                @Html.RadioButtonFor(model => model.IsTimeSpanSelection, "false", new { id = "timespanFalse" })
+                @Html.Label("timespanFalse", "Keine Einschränkung")
+
+                @Html.RadioButtonFor(model => model.IsTimeSpanSelection, "true", new { id = "timespanTrue" })
+                @Html.Label("timespanTrue", "Zeitraum")
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TaggingDateBegin, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.TaggingDateBegin, String.Format("{0:dd.MM.yyyy}", DateTime.Today.Date), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaggingDateBegin)
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TaggingTimeBegin, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.TaggingTimeBegin, "{0:hh\\:mm}", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaggingTimeBegin)
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TaggingDateEnd, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.TaggingDateEnd, String.Format("{0:dd.MM.yyyy}", DateTime.Today.Date), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaggingDateEnd)
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(model => model.TaggingTimeEnd, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.TaggingTimeEnd, "{0:hh\\:mm}", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TaggingTimeEnd)
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-success" name="buttonType" value="anzeigen" style="width:100%"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tags Anzeigen</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-success" name="buttonType" value="download" style="width:100%"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download</button>
+        </div>
+    </fieldset>
+}
+<div class="container">
+    <div id="TagList" style="display: none; overflow: auto; height: 100%;"></div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/themes/base/css")
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script>
+        (function ($, Globalize) {
+
+            // Clone original methods we want to call into
+            var originalMethods = {
+                min: $.validator.methods.min,
+                max: $.validator.methods.max,
+                range: $.validator.methods.range
+            };
+
+            // Tell the validator that we want numbers parsed using Globalize
+
+            $.validator.methods.number = function (value, element) {
+                var val = Globalize.parseFloat(value);
+                return this.optional(element) || ($.isNumeric(val));
+            };
+
+            // Tell the validator that we want dates parsed using Globalize
+
+            $.validator.methods.date = function (value, element) {
+                var val = Globalize.parseDate(value);
+                return this.optional(element) || (val);
+            };
+
+            // Tell the validator that we want numbers parsed using Globalize,
+            // then call into original implementation with parsed value
+
+            $.validator.methods.min = function (value, element, param) {
+                var val = Globalize.parseFloat(value);
+                return originalMethods.min.call(this, val, element, param);
+            };
+
+            $.validator.methods.max = function (value, element, param) {
+                var val = Globalize.parseFloat(value);
+                return originalMethods.max.call(this, val, element, param);
+            };
+
+            $.validator.methods.range = function (value, element, param) {
+                var val = Globalize.parseFloat(value);
+                return originalMethods.range.call(this, val, element, param);
+            };
+
+        }(jQuery, Globalize));
+
+
+        $(function () {
+            Globalize.culture('de-DE');
+            $("#TaggingDateBegin").datepicker(
+                {
+                    dateFormat: 'dd.mm.yy',
+                    option: 'de-DE'
+                }
+            );
+
+            $("#TaggingDateEnd").datepicker(
+                {
+                    dateFormat: 'dd.mm.yy',
+                    option: 'de-DE'
+                }
+            );
+
+        });
+        function Download() {
+            if ($('#TagList').text() == "Download...") {
+                $('#TagList').css("display", "none");
+                location.href = "@Url.Action("TagsDownload", "TaggingAnalysisAjax", new { area = "admin" })";
+            }
+            else {
+                $('#TagList').css("display", "block")
+            };
+        };
+
+    </script>
+}

@@ -1,0 +1,17 @@
+﻿@model SoTaggy.Web.Data.Artwork
+@{
+    ViewBag.Title = "UploadImage";
+}
+
+<h4>Bilddatei für @Model.Title hochladen</h4>
+
+<div class="well">
+@using (Html.BeginForm("UploadImage", "Pool",
+                    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.ArtworkId)
+    <input name="uploadFile" type="file" />
+    <input type="submit" value="Datei hochladen" />
+}
+</div>
+ 

@@ -1,0 +1,124 @@
+﻿@using SoTaggy.Web.Controllers
+@using SoTaggy.Web.Models
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <title>tag-PIN.X - Admin</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/bootstrap/base")
+    @Styles.Render("~/bundles/font-awesome")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = ""})">tag-PIN.X</a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.IsInRole(AccountController.RoleUserAdmin))
+                    {
+                        <li><a href="@Url.Action("Index", "UserAdmin")"><i class="fa fa-2x fa-group"></i> Benutzer</a></li>
+                    }
+
+                    @if (User.IsInRole(AccountController.RoleArtworkAdmin))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-2x fa-picture-o"></i> Bilder
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", "Pool")"><i class="fa fa-fw fa-2x fa-film"></i> Bilderpools</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Index", "Copyright")"><i class="fa fa-fw fa-2x fa-legal"></i> Bildrechteinhaber</a></li>
+                                <li><a href="@Url.Action("Index", "Library")"><i class="fa fa-fw fa-2x  fa-home"></i> Sammlungen</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("Index", "Image")"><i class="fa fa-fw fa-2x  fa-picture-o"></i> Alle Bilder</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole(AccountController.RoleTaggingAdmin))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-2x fa-tags"></i> Tagging
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Index", "TaggingGroup")"><i class="fa fa-fw fa-2x fa-tags"></i> Tagging-Gruppen</a></li>
+                                <li><a href="@Url.Action("Index", "TaggingOrg")"><i class="fa fa-fw fa-2x fa-building-o"></i> Tagging-Institutionen</a></li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole(AccountController.RoleAnalyst))
+                    {
+                        <li><a href="@Url.Action("Index", "TaggingAnalysisAjax")"><i class="fa fa-2x fa-bar-chart-o"></i> Auswertungen</a></li>
+                        <li><a href="@Url.Action("Index", "TaggingState")"><i class="fa fa-2x fa-bar-chart-o"></i> Status</a></li>
+                    }
+
+                    @if (User.Identity.Name.Equals("root"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-2x fa-dashboard"></i> Datenbank
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Entwicklung", "TestDataDev", "Admin")</li>
+                                <li>@Html.ActionLink("Löschen", "ClearDatabase", "Admin")</li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.Identity.Name.Equals("root"))
+                        {
+                            <li><a href="@Url.Action("Manage", "Account", new { area = "" })"><i class="fa fa-2x fa-user"></i> @User.Identity.Name</a></li>
+                        }
+                        <li><a data-toggle="tooltip" title="Abmelden" href="@Url.Action("LogOff", "Account", new { area = "" })"><i class="fa fa-2x fa-power-off"></i> Abmelden</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        @RenderSection("header", required: false)
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="container">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="pull-right">
+                <a href="http://www.sotaggy.org">powered by SoTaggy</a> |
+                <a href="@Url.Action("Imprint", "Home", new { area = "" })">Impressum</a>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

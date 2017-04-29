@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section header {
+    <div class="jumbotron">
+        <div class="container">
+            <h1>tag-PIN.X</h1>
+            <p>Social Tagging zu Exponaten der Pinakothek der Moderne</p>
+            <p>
+                <a href="@Url.Action("HowItWorks", "Home", new { area = "Tagging"})" class="btn btn-success btn-lg">So funktioniert es &raquo;</a>
+                <a href="@Url.Action("Start", "Tagging", new { area = "Tagging"})" class="btn btn-success btn-lg">Start &raquo;</a>
+            </p>
+        </div>
+    </div>
+
+}
+
+<div class="container">
+    <div class="page-header">
+        <h3>Ein Gemeinschaftsprojekt von</h3>
+    </div>
+    <div class="row">
+        <a href="http://www.mpz.bayern.de" class="img-thumbnail"><img style="height: 60px" alt="Museumspädagogisches Zentrum Bayern" src="~/Images/logo_mpz.png" /></a>
+        <a href="http://www.stipimo.de" class="img-thumbnail"><img style="height: 60px" alt="Stiftung Pinakothek der Moderne" src="~/Images/logo_stiftung.gif" /></a>
+        <a href="http://www.pinakothek.de/pinakothek-der-moderne" class="img-thumbnail"><img style="height: 60px" alt="Pinakothek der Moderne" src="~/Images/logo-pinakothek.gif" /></a>
+    </div>
+</div>
+

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SoTaggy.Web.Areas.Admin.Models.UserModel>
+
+@{
+    ViewBag.Title = "UserAdmin";
+}
+
+<h4>Benutzerverwaltung</h4>
+
+<div class="well">
+    @Html.ActionLink("Benutzer anlegen", "CreateUser", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Alle Benutzer löschen", "ResetUAllUser", null, new { @class = "btn btn-success" })
+</div>
+         <table class="table table-striped table-bordered">
+             <thead>
+                 <tr>
+                     <th rowspan="2">Benutzername</th>
+                     <th colspan="4">Rollen</th>
+                     <th rowspan="2">Aktionen</th>
+                 </tr>
+                 <tr>
+                     <th><i class="fa fa-2x fa-group"></i></th>
+                     <th><i class="fa fa-2x fa-picture-o"></i></th>
+                     <th><i class="fa fa-2x fa-tags"></i></th>
+                     <th><i class="fa fa-2x fa-bar-chart-o"></i></th>
+                 </tr>
+             </thead>
+             <tbody>
+                 @foreach (var item in Model)
+                 {
+                     if (!item.IsTagger)
+                     {
+                     <tr>
+                         <td>@item.UserName</td>
+                         <td>@item.IsUserAdmin</td>
+                         <td>@item.IsArtworkAdmin</td>
+                         <td>@item.IsTaggingAdmin</td>
+                         <td>@item.IsAnalyst</td>
+                         <td>
+                             <a href="@Url.Action("EditUser", "UserAdmin", new {userName = @item.UserName})" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                             <a href="@Url.Action("ChangePassword", "UserAdmin", new {userName = @item.UserName})" class="btn btn-success"><i class="fa fa-unlock"></i></a>
+                             <a href="@Url.Action("DeleteUser", "UserAdmin", new {userName = @item.UserName})" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                         </td>
+                     </tr>
+                     }
+                 }
+             </tbody>
+         </table>
+
+

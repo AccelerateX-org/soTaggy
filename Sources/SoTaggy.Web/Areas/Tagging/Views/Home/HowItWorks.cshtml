@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "HowItWorks";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>So funktioniert tag-PIN.X</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-10">
+                <p>In einer Tagging-Session werden per Zufallsgenerator Kunstwerke gezeigt.</p>
+                <p>Rechts befindet sich ein Eingabefeld, in dem jeweils ein Schlagwort eingegeben werden kann. 
+                Mit der Eingabetaste [Enter] wird das Schlagwort gespeichert – völlig anonym übrigens.</p>
+                <p>Bereits eingegebene Schlagworte werden in einer Liste angezeigt.</p>
+                <p>Über die schwarze Menüleiste oben lässt sich die Tagging-Session steuern. Dort kann man beispielsweise vor- und zurückblättern. 
+                Wurden alle Bilder gezeigt, erscheinen sie erneut.</p>
+                <p>Sobald die Tagging-Session über die Menüleiste beendet wurde, werden noch einmal alle Bilder mit den vergebenen Schlagworten gezeigt. 
+                Nun lässt sich nichts mehr ändern.</p>
+                <p><strong>Viel Spaß!</strong></p>
+            </div>
+            <div class="col-md-2">
+                <a href="@Url.Action("Start", "Tagging", new { area = "Tagging"})" class="btn btn-success btn-lg">Start &raquo;</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="thumbnail">
+                    <img alt="Bild mit Tageingabe" src="~/Images/TaggingSchlagworteingabe.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

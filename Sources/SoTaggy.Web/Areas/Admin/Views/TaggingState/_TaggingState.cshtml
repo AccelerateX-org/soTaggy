@@ -1,0 +1,22 @@
+﻿@model List<SoTaggy.Web.Areas.Admin.Models.TagAnalysisImage>
+
+
+<div id="GroupId" style="display: none;">@ViewBag.GroupId</div>
+<div class="col-sm-8 pre-scrollable">
+@foreach (var image in Model)
+{
+    <div class="col-sm-12 col-xs-12">
+        <div id="imageDiv_@image.ArtworkID" style="border-bottom: 1px #979797 solid; padding-bottom: 10px;" class="col-md-12 col-xs-12" onclick="getTags(@image.ArtworkID, '@ViewBag.GroupId')">
+        <p style="color: #4b4b4b; margin-bottom: 2px;">@image.Artwork</p>
+        <div class="col-md-4 col-xs-4">
+            <img src="@Url.Action("ShowImage", "Image", new {area = "Admin", id = image.ArtworkID})" style="height: 50px;width: auto" />
+        </div>
+        <div id="numberTags_@image.ArtworkID" class="col-md-4 col-xs-4" style="font-size: 30px; text-align: center; color: #4b4b4b; padding-top: 5px;">@image.numberTags</div>
+            <div id="numberDifferentTags_@image.ArtworkID" class="col-md-4 col-xs-4" style="font-size: 30px; text-align: center; color: #4b4b4b; padding-top: 5px;">@image.numberDifferentTags</div>
+        </div>
+    </div>
+}
+    </div>
+<div id="TagList" class="col-sm-4 pre-scrollable">
+
+</div>

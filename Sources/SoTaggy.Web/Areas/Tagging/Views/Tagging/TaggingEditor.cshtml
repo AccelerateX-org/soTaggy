@@ -1,0 +1,58 @@
+﻿@model SoTaggy.Web.Areas.Tagging.Models.TagModel
+
+@{
+    ViewBag.Title = "Tagging";
+}
+
+<div class="row">
+    <!-- Das Bild -->
+    <div class="col-md-8 col-sm-8">
+        <div class="panel panel-default thumbnail">
+            <img src="@Url.Action("ShowImage", "Image", new { area="Admin", id = Model.Image.ImageEntryID })" />
+            <p>&copy; @ViewBag.Copyright</p>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>neues Schlagwort</h4>
+            </div>
+            <div class="panel-body">
+                @using (Ajax.BeginForm("SendTag", "Tagging",
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Post",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "TagList",
+                                    OnSuccess="RemoveTag",
+                                }, new { @class = "form-horizontal" }))
+                {
+                    @Html.TextBoxFor(m => m.Tag, null, new { @class="form-control" })
+                }
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>gespeicherte Schlagworte</h4>
+            </div>
+            <div class="panel-body">
+                <div id="TagList">
+                    @Html.Partial("_TagList", Model.Image)
+                </div>
+            </div>
+       </div>
+   </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    function RemoveTag() {
+        document.getElementById('Tag').value = "";
+    }
+    </script>
+}
+
+

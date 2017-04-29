@@ -1,0 +1,13 @@
+﻿@model List<SoTaggy.Web.Areas.Admin.Models.TagList>
+
+
+    <table class="table-condensed table-striped col-sm-12">
+        @foreach (var tag in Model)
+        {
+            <tr>
+                <td class="col-sm-6">@tag.Tag</td>
+                <td class="col-sm-6" style="text-align: right;">@tag.Anzahl</td>
+            </tr>
+        }
+    </table>
+<div id="ImageId" style="display: none;">@ViewBag.ImageId</div>

@@ -1,0 +1,29 @@
+﻿@model ICollection<SoTaggy.Web.Data.ArtworkImage>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Alle Bilder</h2>
+
+
+<table>
+@foreach (var image in Model)
+{
+    <tr>
+        <td><img src="@Url.Action("ShowImage", "Image", new {area = "Admin", id = image.ArtworkId})" style="height: 150px;width: auto" /></td>
+        @if (image.Artwork != null)
+        {
+            <td>@image.Artwork.Title</td>                
+        }
+        else
+        {
+            <td>Ohne Zuordnung</td>
+        }
+    </tr>
+}
+    
+
+</table>
+
+
+

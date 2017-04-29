@@ -1,0 +1,40 @@
+﻿@model List<SoTaggy.Web.Areas.Admin.Models.TagAnalysisImage>
+
+<table id="TagList" class="table table-condensed">
+
+    @foreach (var imageTags in Model)
+    {
+        if (imageTags.Tags.Any())
+        {
+            foreach (SoTaggy.Web.Areas.Admin.Models.TagList tag in imageTags.Tags)
+            {
+                <tr>
+                    @if (tag == imageTags.Tags.First())
+                    {
+                        var rowCount = imageTags.Tags.Count > 0 ? imageTags.Tags.Count : 1;
+                        <td rowspan="@rowCount">
+                            <div>
+                                <h4 style="color: #4b4b4b">@imageTags.Artwork</h4>
+                                <img src="@Url.Action("ShowImage", "Image", new {area = "Admin", id = imageTags.ArtworkID})" style="height: 150px; width: auto"/>
+                            </div>
+                        </td>
+                    }
+                    <td>@tag.Tag</td>
+                    <td>@tag.Anzahl</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    <div>
+                        <h4 style="color: #4b4b4b">@imageTags.Artwork</h4>
+                        <img src="@Url.Action("ShowImage", "Image", new {area = "Admin", id = imageTags.ArtworkID})" style="height: 150px; width: auto"/>
+                    </div>
+                </td>
+                <td colspan="2">Keine Tags</td>
+            </tr>
+        }
+    }
+</table>

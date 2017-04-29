@@ -1,0 +1,89 @@
+﻿@model SoTaggy.Web.Data.Artwork
+
+@{
+    ViewBag.Title = "CreateImage";
+}
+
+<div class="well">
+@using (Html.BeginForm("CreateImage", "Pool", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Neues Bild anlegen</legend>
+
+        @Html.HiddenFor(model => model.ArtworkPoolId)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Artist, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Artist, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Artist)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dating, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Dating, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dating)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Technique, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Technique, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Technique)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dimensions, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Dimensions, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Dimensions)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArtworkLibraryId, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ArtworkLibraryId, (IEnumerable<SelectListItem>)ViewBag.Libraries, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ArtworkLibraryId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CopyrightOwnerId, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CopyrightOwnerId, (IEnumerable<SelectListItem>)ViewBag.Copyrights, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CopyrightOwnerId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-success" value="Bild anlegen" />
+                <a href="@Url.Action("Index")" class="btn">Zurück zur Liste</a>
+            </div>
+        </div>
+
+    </fieldset>
+}
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
